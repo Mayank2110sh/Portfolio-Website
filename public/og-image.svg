@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e17"/>
+      <stop offset="100%" stop-color="#1a1e2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" rx="8"/>
+  <text x="80" y="260" font-family="monospace" font-size="72" font-weight="bold" fill="#00f0ff">Mayank Sharma</text>
+  <text x="80" y="340" font-family="monospace" font-size="40" fill="#ff4655">Game Developer</text>
+  <text x="80" y="420" font-family="monospace" font-size="24" fill="#8899aa">Unity · C# · Multiplayer · 15+ Games Shipped</text>
+  <rect x="80" y="470" width="240" height="4" rx="2" fill="#00f0ff"/>
+  <text x="80" y="540" font-family="monospace" font-size="18" fill="#556677">mayank-sharma-gamedev.vercel.app</text>
+</svg>
