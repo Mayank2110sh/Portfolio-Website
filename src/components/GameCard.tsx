@@ -8,7 +8,7 @@ interface GameCardProps {
 
 export function GameCard({ game, index }: GameCardProps) {
   return (
-    <DirectionalReveal delay={index * 0.06}>
+    <DirectionalReveal className="game-card__reveal" delay={index * 0.06}>
       <article className="game-card">
         <div className="game-card__image-wrap">
           <img
