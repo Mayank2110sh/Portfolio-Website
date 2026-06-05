@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0d1020"/>
+      <stop offset="100%" style="stop-color:#201028"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg2)"/>
+  <text x="400" y="220" text-anchor="middle" fill="#ff4655" font-family="system-ui,sans-serif" font-size="42" font-weight="bold">VOID PROTOCOL</text>
+  <text x="400" y="270" text-anchor="middle" fill="#8b9bb4" font-family="system-ui,sans-serif" font-size="18">Replace with your screenshot</text>
+  <circle cx="400" cy="120" r="40" fill="none" stroke="#00f0ff" stroke-width="2" opacity="0.5"/>
+</svg>
