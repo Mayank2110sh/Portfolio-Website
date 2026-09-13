@@ -1,39 +1,63 @@
-import { site } from "../data/portfolio";
+import { site, skillsClusters } from "../data/portfolio";
 import { DirectionalReveal } from "./DirectionalReveal";
-
-const skills = [
-  { label: "Unity", icon: "U" },
-  { label: "C#", icon: "C#" },
-  { label: "Firebase Firestore", icon: "Fb" },
-  { label: "Construct 3", icon: "C3" },
-  { label: "Photon PUN", icon: "Pn" },
-  { label: "Socket.io", icon: "Io" },
-  { label: "Ads", icon: "Ad" },
-  { label: "In-App Purchases", icon: "IAP" },
-];
 
 export function About() {
   return (
     <section className="section about" id="about">
       <DirectionalReveal>
-        <p className="section__label">01 - Profile</p>
+        <p className="section__label">01 — Professional Profile</p>
         <h2 className="section__title">
-          About <span>Me</span>
+          Engineered for <span>Gameplay & Scale</span>
         </h2>
-        <div className="about__layout">
-          <p className="about__text">{site.about}</p>
-          <div className="about__skills" aria-label="Skills">
-            {skills.map((skill) => (
-              <span className="about__skill" key={skill.label}>
-                <span className="about__skill-icon" aria-hidden="true">
-                  {skill.icon}
-                </span>
-                <span>{skill.label}</span>
-              </span>
-            ))}
+
+        <div className="about__grid">
+          <div className="about__text-col">
+            <p className="about__lead-text">{site.about}</p>
+
+            <div className="about__key-points">
+              <div className="about__point">
+                <span className="about__point-icon">⚡</span>
+                <div>
+                  <strong>Live Platform Ownership:</strong> Platform integration and multiplayer stability for Citta Lite&apos;s 20+ game ecosystem.
+                </div>
+              </div>
+
+              <div className="about__point">
+                <span className="about__point-icon">🎯</span>
+                <div>
+                  <strong>Rapid 7-Day Solo Prototyping:</strong> Built and shipped <em>Perfect Landing</em> solo in a 1-week hackathon with AI-assisted workflows and full SDK monetization.
+                </div>
+              </div>
+
+              <div className="about__point">
+                <span className="about__point-icon">🛡️</span>
+                <div>
+                  <strong>Monetization & Stability:</strong> Hands-on experience resolving critical ANRs, crashes, and ad policy violations while optimizing revenue.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="about__skills-col">
+            <h3 className="about__skills-heading">Technical Stack & Core Domains</h3>
+            <div className="about__clusters">
+              {skillsClusters.map((cluster) => (
+                <div key={cluster.category} className="about__cluster">
+                  <h4 className="about__cluster-title">{cluster.category}</h4>
+                  <div className="about__tags">
+                    {cluster.skills.map((skill) => (
+                      <span key={skill} className="about__tag">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </DirectionalReveal>
     </section>
   );
 }
+

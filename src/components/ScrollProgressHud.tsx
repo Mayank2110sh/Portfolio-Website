@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
-const SECTION_IDS = ["home", "about", "games", "connect"];
-const CHECKPOINTS = [8, 34, 64, 90];
+const SECTION_IDS = ["home", "about", "games", "architecture", "experience", "connect"];
+const CHECKPOINTS = [5, 22, 42, 62, 80, 95];
 
 export function ScrollProgressHud() {
   const [progress, setProgress] = useState(0);
@@ -17,11 +17,9 @@ export function ScrollProgressHud() {
       let current = "home";
       for (const id of SECTION_IDS) {
         const section = document.getElementById(id);
-        if (!section) {
-          continue;
-        }
+        if (!section) continue;
         const bounds = section.getBoundingClientRect();
-        if (bounds.top <= window.innerHeight * 0.4) {
+        if (bounds.top <= window.innerHeight * 0.45) {
           current = id;
         }
       }
@@ -43,12 +41,16 @@ export function ScrollProgressHud() {
     <aside className="progress-hud" aria-label="Scroll progress">
       <div className="progress-hud__track">
         <div className="progress-hud__fill" style={{ transform: `scaleY(${progress})` }} />
-        <div className="progress-hud__racer" style={{ top: `calc(${progress * 100}% - 12px)` }} />
+        <div
+          className="progress-hud__racer"
+          style={{ top: `calc(${progress * 100}% - 10px)` }}
+        />
         {SECTION_IDS.map((id) => (
           <div
             key={id}
             className={`progress-hud__checkpoint ${activeSection === id ? "is-active" : ""}`}
             style={{ top: `${CHECKPOINTS[SECTION_IDS.indexOf(id)]}%` }}
+            title={id}
           />
         ))}
       </div>

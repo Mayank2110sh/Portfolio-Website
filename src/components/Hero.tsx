@@ -1,141 +1,97 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { site } from "../data/portfolio";
 import { DirectionalReveal } from "./DirectionalReveal";
 import { GlitchLogo } from "./GlitchLogo";
-
-const dockPosition = {
-  top: 124,
-  left: 20,
-  scale: 0.34,
-};
-
-const dockScrollY = 50;
-const undockScrollY = 32;
+import { CountUp } from "./CountUp";
+import { playClickSound } from "../utils/audio";
 
 export function Hero() {
-  const heroRef = useRef<HTMLElement | null>(null);
-  const logoSlotRef = useRef<HTMLDivElement | null>(null);
-  const [logoOrigin, setLogoOrigin] = useState({ top: 0, left: 0, ready: false });
-  const [isLogoDocked, setIsLogoDocked] = useState(false);
-  const [canAnimateLogo, setCanAnimateLogo] = useState(false);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const heroContentOpacity = useTransform(scrollYProgress, [0, 0.38], [1, 0]);
-
-  useLayoutEffect(() => {
-    const updateLogoOrigin = () => {
-      const rect = logoSlotRef.current?.getBoundingClientRect();
-
-      if (!rect) {
-        return;
-      }
-
-      setLogoOrigin({
-        top: rect.top + window.scrollY,
-        left: rect.left,
-        ready: true,
-      });
-    };
-
-    updateLogoOrigin();
-    void document.fonts?.ready.then(updateLogoOrigin);
-    window.addEventListener("resize", updateLogoOrigin);
-
-    return () => {
-      window.removeEventListener("resize", updateLogoOrigin);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!logoOrigin.ready) {
-      return;
-    }
-
-    const frame = window.requestAnimationFrame(() => {
-      setCanAnimateLogo(true);
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-    };
-  }, [logoOrigin.ready]);
-
-  useEffect(() => {
-    const updateDockedState = () => {
-      setIsLogoDocked((isDocked) => {
-        if (isDocked) {
-          return window.scrollY > undockScrollY;
-        }
-
-        return window.scrollY > dockScrollY;
-      });
-    };
-
-    updateDockedState();
-    window.addEventListener("scroll", updateDockedState, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", updateDockedState);
-    };
-  }, []);
-
-  const scrollToGames = () => {
-    document.getElementById("games")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (id: string) => {
+    playClickSound(650, 0.03);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="hero" id="home" ref={heroRef}>
-      <div className="hero__scanlines" aria-hidden="true" />
-      <motion.div
-        className="hero__moving-logo"
-        animate={
-          isLogoDocked
-            ? dockPosition
-            : {
-                top: logoOrigin.top,
-                left: logoOrigin.left,
-                scale: 1,
-              }
-        }
-        initial={false}
-        transition={{
-          duration: canAnimateLogo ? 0.42 : 0,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        style={{ visibility: logoOrigin.ready ? "visible" : "hidden" }}
-      >
-        <GlitchLogo text={site.name} />
-      </motion.div>
-      <div className="hero__content">
-        <div className="hero__logo-slot" ref={logoSlotRef} aria-hidden="true">
-          <GlitchLogo text={site.name} />
-        </div>
+    <section className="hero" id="home">
+      <div className="hero__background-glow" aria-hidden="true" />
+
+      <div className="hero__container">
         <DirectionalReveal>
-          <motion.div className="hero__intro" style={{ opacity: heroContentOpacity }}>
-            <motion.p
-              className="hero__tagline"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.2, duration: 0.6 }}
-            >
-              {site.tagline}
-            </motion.p>
-            <motion.button
+          <div className="hero__status-badge">
+            <span className="hero__status-dot" />
+            <span className="hero__status-text">
+              SDE-2 UNITY DEVELOPER • 4+ YEARS COMMERCIAL XP
+            </span>
+          </div>
+
+          <div className="hero__name-box">
+            <GlitchLogo text={site.name} />
+          </div>
+
+          <p className="hero__role-tagline">
+            {site.tagline}
+          </p>
+
+          <p className="hero__summary">
+            Leading gameplay development and real-time multiplayer platform integration on{" "}
+            <strong>Citta Lite (20+ games)</strong> at Sharpenminds Technologies. Shipped <strong>25+ games</strong> across Android, iOS & WebGL, with <strong>3+ published on Google Play</strong>, and solo-built <em>Perfect Landing</em> in 1 week.
+          </p>
+
+          <div className="hero__actions">
+            <button
               type="button"
-              className="hero__cta"
-              onClick={scrollToGames}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.6, duration: 0.5 }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
+              className="hero__btn hero__btn--primary"
+              onClick={() => scrollToSection("games")}
             >
-              View my work
-              <span aria-hidden="true">v</span>
-            </motion.button>
+              <span>Explore Games</span>
+              <span className="hero__btn-arrow">↓</span>
+            </button>
+
+            <button
+              type="button"
+              className="hero__btn hero__btn--secondary"
+              onClick={() => scrollToSection("architecture")}
+            >
+              <span>Game Architecture</span>
+              <span className="hero__btn-arrow">→</span>
+            </button>
+
+            <a
+              href="/Mayank_Sharma_Resume.pdf"
+              download="Mayank_Sharma_Resume.pdf"
+              className="hero__btn hero__btn--resume"
+              onClick={() => playClickSound(800, 0.04)}
+            >
+              <svg
+                className="hero__resume-icon"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <span>Download Resume</span>
+            </a>
+          </div>
+
+          <motion.div
+            className="hero__stats-row"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            {site.stats.map((stat) => (
+              <div key={stat.label} className="hero__stat-card">
+                <span className="hero__stat-val">
+                  <CountUp value={stat.value} />
+                </span>
+                <span className="hero__stat-label">{stat.label}</span>
+              </div>
+            ))}
           </motion.div>
         </DirectionalReveal>
       </div>

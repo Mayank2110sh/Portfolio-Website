@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="100%" height="100%">
+  <defs>
+    <!-- Glowing white neon filter -->
+    <filter id="glow-white" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur1" />
+      <feGaussianBlur stdDeviation="20" result="blur2" />
+      <feGaussianBlur stdDeviation="40" result="blur3" />
+      <feMerge>
+        <feMergeNode in="blur3" />
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Subtle radial ambient gradient -->
+    <radialGradient id="bg-grad" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#0a0a0a" />
+      <stop offset="100%" stop-color="#000000" />
+    </radialGradient>
+  </defs>
+
+  <!-- Solid pure black background -->
+  <rect width="1280" height="720" fill="url(#bg-grad)" />
+
+  <!-- Subtle corner tech markings -->
+  <path d="M 60 100 L 60 60 L 100 60" fill="none" stroke="#222222" stroke-width="2" />
+  <path d="M 1220 100 L 1220 60 L 1180 60" fill="none" stroke="#222222" stroke-width="2" />
+  <path d="M 60 620 L 60 660 L 100 660" fill="none" stroke="#222222" stroke-width="2" />
+  <path d="M 1220 620 L 1220 660 L 1180 660" fill="none" stroke="#222222" stroke-width="2" />
+
+  <!-- Subtle top metadata tag -->
+  <text x="640" y="270" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-size="14" font-weight="600" fill="#666666" letter-spacing="8">MULTIPLAYER PUZZLE</text>
+
+  <!-- Big glowing white AEVIN text -->
+  <text x="640" y="390" text-anchor="middle" font-family="'Chakra Petch', 'Orbitron', system-ui, sans-serif" font-size="112" font-weight="900" fill="#ffffff" letter-spacing="16" filter="url(#glow-white)">AEVIN</text>
+
+  <!-- Subtle bottom subtitle -->
+  <text x="640" y="450" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-size="14" font-weight="500" fill="#888888" letter-spacing="6">PHOTON PUN • UNITY</text>
+</svg>

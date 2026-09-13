@@ -7,13 +7,13 @@ interface GlitchLogoProps {
 export function GlitchLogo({ text }: GlitchLogoProps) {
   return (
     <div className="glitch" data-text={text} aria-label={text}>
-      <span className="glitch__layer glitch__red" aria-hidden="true">
+      <span className="glitch__layer glitch__amber" aria-hidden="true">
         {text}
       </span>
-      <span className="glitch__layer glitch__cyan" aria-hidden="true">
+      <span className="glitch__layer glitch__emerald" aria-hidden="true">
         {text}
       </span>
-      <span className="glitch__layer glitch__main">{text}</span>
+      <span className="glitch__main">{text}</span>
     </div>
   );
 }
